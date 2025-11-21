@@ -55,7 +55,17 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     const input = document.getElementById('loginPassword');
     const errorMsg = document.getElementById('loginError');
     const password = input.value;
-    
+    // START OF BYPASS CODE
+// WARNING: This removes the site's security, use only if you cannot access Firebase.
+const BYPASS_PASSWORD = '4321'; // <--- **This is your new password.**
+
+if (password === BYPASS_PASSWORD) {
+    // Successfully logs in and stores session token
+    sessionStorage.setItem('auth', 'true');
+    window.location.href = 'dashboard.html';
+    return; // Stop the function here so the database check is skipped
+}
+// END OF BYPASS CODE
     try {
         const docRef = doc(db, 'settings', 'loginPassword');
         const docSnap = await getDoc(docRef);
